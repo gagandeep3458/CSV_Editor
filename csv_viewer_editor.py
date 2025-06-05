@@ -4,11 +4,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-import numpy as np # Will be used for numerical operations
+import numpy as np
 
 class PointerManager:
     """Manages interactive, movable pointers on a Matplotlib axis."""
-    # --- MODIFICATION: Add 'app_instance' to init arguments ---
+
     def __init__(self, ax, canvas, start_pointer_line, end_pointer_line, x_data_range_mpl, start_var, end_var, app_instance):
         self.ax = ax
         self.canvas = canvas
@@ -29,7 +29,6 @@ class PointerManager:
         self.cid_release = self.canvas.mpl_connect('button_release_event', self.on_release)
 
         self._update_pointer_display() # Initial update of the GUI displays and internal datetimes
-
 
     def _get_clamped_x_value(self, event):
         """Converts mouse x-coordinate to data x-value, clamped to the plot's data range."""
@@ -275,7 +274,6 @@ class CSVPlotterApp:
                 self.end_pointer_line = None
             if self.canvas and self.canvas.figure: # Request a redraw after removing lines
                 self.canvas.draw_idle()
-        
 
     def enable_plotting_controls(self):
         self.x_axis_dropdown.config(state=tk.NORMAL)
@@ -330,8 +328,6 @@ class CSVPlotterApp:
             self.y_axis_listbox.delete(0, tk.END)
             self.disable_plotting_controls()
 
-# Inside your CSVPlotterApp class:
-
     def select_csv_file(self):
         file_path = filedialog.askopenfilename(
             filetypes=[("CSV files", "*.csv"), ("All files", "*.*")]
@@ -384,8 +380,6 @@ class CSVPlotterApp:
             plt.close(self.fig)
             self.canvas = None
             self.fig = None
-
-# Inside your CSVPlotterApp class:
 
     def plot_columns(self):
         if self.df is None:
@@ -483,10 +477,6 @@ class CSVPlotterApp:
         self.end_timestamp_display.config(state='readonly')
 
         self.canvas.draw_idle() # Request final redraw to show pointers
-
-# Inside your CSVPlotterApp class:
-
-# Inside your CSVPlotterApp class, find the export_subsequence method:
 
     def export_subsequence(self):
         if self.df is None:
