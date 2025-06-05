@@ -58,12 +58,6 @@ class CSVPlotterApp:
         self.y_axis_listbox.config(yscrollcommand=self.y_axis_scrollbar.set)
         self.y_axis_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-        # Y-axis selection buttons
-        self.select_all_btn = tk.Button(self.control_frame, text="Select All Y", command=self.select_all_y_columns)
-        self.select_all_btn.grid(row=3, column=0, pady=2, padx=5, sticky="ew")
-        self.deselect_all_btn = tk.Button(self.control_frame, text="Deselect All Y", command=self.deselect_all_y_columns)
-        self.deselect_all_btn.grid(row=3, column=1, pady=2, padx=5, sticky="ew")
-
         # In your CSVPlotterApp's __init__ method, find the Generate Plot Button section.
         # We'll add the new elements just below it, or in a new section.
 
@@ -131,8 +125,6 @@ class CSVPlotterApp:
         # If using Checkbuttons: self.y_axis_canvas.config(state=tk.DISABLED)
         
         self.plot_button.config(state=tk.DISABLED)
-        self.select_all_btn.config(state=tk.DISABLED)
-        self.deselect_all_btn.config(state=tk.DISABLED)
 
         # Disable pointer-related GUI elements
         self.start_timestamp_display.config(state=tk.DISABLED) # Make display non-interactive
@@ -159,8 +151,6 @@ class CSVPlotterApp:
         # If using Checkbuttons: self.y_axis_canvas.config(state=tk.NORMAL)
         
         self.plot_button.config(state=tk.NORMAL)
-        self.select_all_btn.config(state=tk.NORMAL)
-        self.deselect_all_btn.config(state=tk.NORMAL)
 
         # Enable pointer-related GUI elements
         self.start_timestamp_display.config(state=tk.NORMAL) # Set to NORMAL to allow value updates
@@ -243,14 +233,6 @@ class CSVPlotterApp:
                 self.update_column_options() # This will disable controls if df is None
                 # print(f"DEBUG: Error path: After update_column_options call. ID of Listbox: {id(self.y_axis_listbox)}") # Optional debug
                 self.clear_plot()
-
-    def select_all_y_columns(self):
-        if self.df is not None:
-            for i in range(self.y_axis_listbox.size()):
-                self.y_axis_listbox.select_set(i)
-
-    def deselect_all_y_columns(self):
-        self.y_axis_listbox.selection_clear(0, tk.END)
 
     def clear_plot(self):
         if self.canvas:
